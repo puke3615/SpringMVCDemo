@@ -4,6 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Chingyu Mo
@@ -24,4 +28,20 @@ public class HomeController {
         //返回一个index.jsp这个视图
         return "index";
     }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public Object test() {
+        return "index";
+    }
+
+    @RequestMapping("/json")
+    @ResponseBody
+    public Object json() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", "abc");
+        data.put("age", 123);
+        return data;
+    }
+
 }
