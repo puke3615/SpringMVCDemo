@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Locale;
 
 /**
@@ -22,6 +23,7 @@ import java.util.Locale;
 public class SpiderTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(HomeController.class);
+    private static final URL currentURL = Thread.currentThread().getContextClassLoader().getResource("scripts/spider.py");
 
     // 每分钟的10秒执行
     @Scheduled(cron = "10 * * * * ?")
@@ -39,8 +41,11 @@ public class SpiderTask {
 //    @Scheduled(cron = "0 * * * * ?")
     @Scheduled(fixedRate = 1000)
     public void startupSpider() {
+        if (currentURL == null) {
+            return;
+        }
         try {
-            String command = "python /Users/zijiao/Documents/WorkSpace/Idea/SpringMVCDemo/1.py";
+            String command = String.format(Locale.getDefault(), "python %s", currentURL.getPath());
             Process process = Runtime.getRuntime().exec(command);
             String result = new String(is2Bytes(process.getInputStream()));
             LOG.info(String.format(Locale.getDefault(), "[%s]: %s", command, result));
