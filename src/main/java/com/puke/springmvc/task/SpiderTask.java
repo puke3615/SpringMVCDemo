@@ -4,7 +4,6 @@ import com.puke.springmvc.HomeController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,7 +18,8 @@ import java.util.Locale;
  *          [秒] [分] [小时] [日] [月] [周] [年]
  *          参: https://www.cnblogs.com/liaojie970/p/5913272.html
  */
-@Component
+// 取消注释, 开启Task
+// @Component
 public class SpiderTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(HomeController.class);
